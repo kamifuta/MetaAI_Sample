@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace Game.Players
 {
-    public class PlayerController : ControllerBase, IStartable, ITickable
+    public class PlayerController : ControllerBase, IStartable
     {
         private IPlayerInput playerInput;
         private IPlayerMover playerMover;
@@ -33,11 +33,14 @@ namespace Game.Players
                     playerShooter.Shot();
                 })
                 .AddTo(this);
-        }
 
-        public void Tick()
-        {
-            playerMover.Move(playerInput.MoveVec);
+            this.ObserveEveryValueChanged(x => x.playerInput.MoveVec)
+                .ThrottleFirstFrame(1)
+                .Subscribe(_ =>
+                {
+                    playerMover.Move(playerInput.MoveVec);
+                })
+                .AddTo(this);
         }
     }
 }
