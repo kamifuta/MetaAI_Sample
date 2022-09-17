@@ -1,18 +1,34 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using UniRx;
 using UnityEngine;
+using VContainer.Unity;
 
-public class EnemyAI : MonoBehaviour
+namespace Game.Enemies
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyAI : IEnemyInput
     {
-        
-    }
+        public Vector2 MoveVec { get; } = Vector2.down;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private ISubject<bool> pushedFireSubject = new Subject<bool>();
+        public IObservable<bool> PushedFire => pushedFireSubject.AsObservable();
+
+        public EnemyAI(CancellationToken token)
+        {
+            PushedFireAsync(token).Forget();
+        }
+
+        public async UniTask PushedFireAsync(CancellationToken token)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
+            while (true)
+            {
+                pushedFireSubject.OnNext(true);
+                await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
+            }
+        }
     }
 }

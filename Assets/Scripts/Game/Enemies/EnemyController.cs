@@ -1,18 +1,45 @@
+using MyUtil;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
-public class EnemyController : MonoBehaviour
+namespace Game.Enemies
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyController : ControllerBase, IStartable
     {
-        
-    }
+        private IEnemyMover enemyMover;
+        private IEnemyInput enemyAI;
+        private IEnemyShooter enemyShooter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public EnemyController(IEnemyMover enemyMover, IEnemyInput enemyAI, IEnemyShooter enemyShooter)
+        {
+            this.enemyMover = enemyMover;
+            this.enemyAI = enemyAI;
+            this.enemyShooter = enemyShooter;
+
+            Init();
+        }
+
+        private void Init()
+        {
+            enemyMover.Move(enemyAI.MoveVec);
+
+            enemyAI.PushedFire
+                .Where(x => x)
+                .Subscribe(_ =>
+                {
+                    enemyShooter.Shot();
+                })
+                .AddTo(this);
+        }
+
+        public void Start()
+        {
+            
+        }
     }
 }
+

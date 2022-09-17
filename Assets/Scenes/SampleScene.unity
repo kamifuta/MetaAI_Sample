@@ -461,6 +461,8 @@ MonoBehaviour:
   autoInjectGameObjects: []
   playerMover: {fileID: 1854251707614834315}
   playerShooter: {fileID: 1854251707614834316}
+  enemyMover: {fileID: 7734444502624515388, guid: 6c188e3916e1b394987ebba96d0a4391, type: 3}
+  enemyShooter: {fileID: 5949373616460011703, guid: 6c188e3916e1b394987ebba96d0a4391, type: 3}
 --- !u!4 &2038723567
 Transform:
   m_ObjectHideFlags: 0

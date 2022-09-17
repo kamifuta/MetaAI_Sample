@@ -1,3 +1,4 @@
+using Game.Enemies;
 using Game.Players;
 using UnityEngine;
 using VContainer;
@@ -11,7 +12,9 @@ public class GameLifetimeScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterEntryPoint<PlayerController>();
+
         builder.Register<IPlayerInput, PlayerKyeInput>(Lifetime.Singleton);
+        builder.Register<IEnemyInput, EnemyAI>(Lifetime.Singleton);
 
         builder.RegisterComponent<IPlayerMover>(playerMover);
         builder.RegisterComponent<IPlayerShooter>(playerShooter);
