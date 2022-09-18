@@ -1,3 +1,4 @@
+using Game.Enemies;
 using Game.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,9 @@ namespace Game.Bullets
     {
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(TagType.Enemy))
+            if (other.TryGetComponent<IEnemyDamagable>(out var damagable))
             {
+                damagable.ApplyDamage(1);
                 Destroy(this.gameObject);
             }
         }

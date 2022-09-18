@@ -9,11 +9,11 @@ using VContainer.Unity;
 
 namespace Game.Enemies
 {
-    public class EnemyAI : IEnemyInput
+    public class EnemyAI : IEnemyInput, IDisposable
     {
         public Vector2 MoveVec { get; } = Vector2.down;
 
-        private ISubject<bool> pushedFireSubject = new Subject<bool>();
+        private Subject<bool> pushedFireSubject = new Subject<bool>();
         public IObservable<bool> PushedFire => pushedFireSubject.AsObservable();
 
         public EnemyAI(CancellationToken token)
@@ -29,6 +29,11 @@ namespace Game.Enemies
                 pushedFireSubject.OnNext(true);
                 await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
             }
+        }
+
+        public void Dispose()
+        {
+            pushedFireSubject.Dispose();
         }
     }
 }
