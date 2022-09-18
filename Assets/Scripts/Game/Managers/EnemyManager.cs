@@ -21,6 +21,8 @@ namespace Game.Managers
         private const float MaxInterval = 4f;
         private const float MinInterval = 1f;
 
+        private const float Bottom = -5.5f;
+
         private ISubject<Vector2> enemyDethPointSubject = new Subject<Vector2>();
         public IObservable<Vector2> EnemyDethPointObservable => enemyDethPointSubject;
 
@@ -55,6 +57,14 @@ namespace Game.Managers
 
         private void ObservaEnemyObject(GameObject enemy, EnemyController enemyController, CancellationTokenSource token)
         {
+            enemy.UpdateAsObservable()
+                .Where(_=>enemy.transform.position.y<Bottom)
+                .Subscribe(_ =>
+                {
+                    Destroy(enemy);
+                })
+                .AddTo(this);
+
             enemy.OnDestroyAsObservable()
                 .Subscribe(_ =>
                 {

@@ -32,6 +32,7 @@ namespace Game.Managers
         {
             while (true)
             {
+                
                 await UniTask.WaitUntil(() => dethPosList.Count >= 5);
 
                 var result = CaluDifficulty();
