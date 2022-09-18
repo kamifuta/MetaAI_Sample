@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShooter : MonoBehaviour, IPlayerShooter
+namespace Game.Players
 {
-    [SerializeField] private GameObject BulletPrefab;
-
-    public void Shot()
+    public class PlayerShooter : MonoBehaviour, IPlayerShooter
     {
-        var bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<BulletMover>().SetInitioalSpeed(Vector2.up);
+        [SerializeField] private GameObject BulletPrefab;
+
+        public void Shot()
+        {
+            var bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<BulletMover>().SetInitioalSpeed(Vector2.up);
+        }
     }
 }
+

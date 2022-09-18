@@ -9,18 +9,23 @@ using VContainer.Unity;
 
 namespace Game.Players
 {
-    public class PlayerController : ControllerBase, IStartable
+    public class PlayerController : ControllerBase, IStartable, IDisposable
     {
         private IPlayerInput playerInput;
         private IPlayerMover playerMover;
         private IPlayerShooter playerShooter;
+        private IPlayerHealth playerHealth;
+        private IPlayerAnimation playerAnimation;
 
         [Inject]
-        public PlayerController(IPlayerInput playerInput, IPlayerMover playerMover, IPlayerShooter playerShooter)
+        public PlayerController(IPlayerInput playerInput, IPlayerMover playerMover, IPlayerShooter playerShooter,
+            IPlayerHealth playerHealth, IPlayerAnimation playerAnimation)
         {
             this.playerInput = playerInput;
             this.playerMover = playerMover;
             this.playerShooter = playerShooter;
+            this.playerHealth = playerHealth;
+            this.playerAnimation = playerAnimation;
         }
 
         public void Start()
@@ -41,6 +46,21 @@ namespace Game.Players
                     playerMover.Move(playerInput.MoveVec);
                 })
                 .AddTo(this);
+
+            this.ObserveEveryValueChanged(x => x.playerHealth.IsDead)
+                .Skip(1)
+                .Where(x => x)
+                .Subscribe(_ =>
+                {
+                    playerAnimation.PlayDieAnimation();
+                    Dispose();
+                })
+                .AddTo(this);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

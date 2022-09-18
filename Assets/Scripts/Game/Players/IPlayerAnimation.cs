@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Game.Players
 {
-    public interface IPlayerShooter
+    public interface IPlayerAnimation
     {
-        public void Shot();
+        void PlayDieAnimation();
     }
 }
+

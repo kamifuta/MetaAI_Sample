@@ -1,3 +1,4 @@
+using Game.Players;
 using Game.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,9 @@ namespace Game.Bullets
     {
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(TagType.Player))
+            if (collision.TryGetComponent<IPlayerDamagable>(out var damagable))
             {
+                damagable.ApplyDamage(1);
                 Destroy(this.gameObject);
             }
         }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Game.Players
 {
-    public interface IPlayerShooter
+    public interface IPlayerDamagable
     {
-        public void Shot();
+        void ApplyDamage(int damage);
     }
 }
+

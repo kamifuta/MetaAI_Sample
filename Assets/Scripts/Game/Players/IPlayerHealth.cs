@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Game.Players
 {
-    public interface IPlayerShooter
+    public interface IPlayerHealth
     {
-        public void Shot();
+        bool IsDead { get; }
+
+        void AddDamage(int damage);
     }
 }
+
