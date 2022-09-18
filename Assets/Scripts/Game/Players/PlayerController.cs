@@ -31,7 +31,7 @@ namespace Game.Players
         public void Start()
         {
             this.ObserveEveryValueChanged(x => x.playerInput.PushedFire)
-                .ThrottleFirst(TimeSpan.FromSeconds(1))
+                .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
                 .Where(x => x)
                 .Subscribe(_ =>
                 {

@@ -13,14 +13,17 @@ namespace Game.Managers
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField] private EnemyGenerator enemyGenerator; 
+        [SerializeField] private EnemyGenerator enemyGenerator;
 
-        private WaitForSeconds enemyGenerateInterval = new WaitForSeconds(8f);
+        private WaitForSeconds enemyGenerateInterval;
+        [SerializeField] private float intervalValue =2.5f;
 
-        private CancellationTokenSource _AILinkedToken;
+        private ISubject<Vector2> enemyDethPointSubject = new Subject<Vector2>();
+        public IObservable<Vector2> EnemyDethPointObservable => enemyDethPointSubject;
 
         public IEnumerator GenerateEnemyCoroutine()
         {
+            enemyGenerateInterval = new WaitForSeconds(intervalValue);
             yield return null;
             while (true)
             {
@@ -52,10 +55,19 @@ namespace Game.Managers
             enemy.OnDestroyAsObservable()
                 .Subscribe(_ =>
                 {
+                    Vector3 position = enemy.transform.position;
+                    enemyDethPointSubject.OnNext(new Vector2(position.x, position.y));
                     enemyController.Dispose();
                     token.Cancel();
                 })
                 .AddTo(this);
+        }
+
+        public void SetGenerateInterval(float delta)
+        {
+            intervalValue -= delta;
+            enemyGenerateInterval = new WaitForSeconds(intervalValue);
+            Debug.Log($"interval : {intervalValue}");
         }
     }
 }
