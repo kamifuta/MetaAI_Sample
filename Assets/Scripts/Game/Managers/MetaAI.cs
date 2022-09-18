@@ -45,7 +45,7 @@ namespace Game.Managers
         private float CaluDifficulty()
         {
             var average = dethPosList.Average();
-            var value = curve.Evaluate((average / 10) + 0.5f);
+            var value = curve.Evaluate((average / 5) + 0.5f);
 
             var result = (value - 0.5f) * 4;
             return result;

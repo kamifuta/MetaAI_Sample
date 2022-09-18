@@ -13,7 +13,8 @@ namespace Game.Bullets
             if (other.TryGetComponent<IEnemyDamagable>(out var damagable))
             {
                 damagable.ApplyDamage(1);
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
