@@ -27,7 +27,11 @@ namespace Game.Enemies
             while (true)
             {
                 pushedFireSubject.OnNext(true);
-                await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.8f), cancellationToken: token);
+                pushedFireSubject.OnNext(true);
+                await UniTask.Delay(TimeSpan.FromSeconds(2.4f), cancellationToken: token);
+                //pushedFireSubject.OnNext(true);
+                //await UniTask.Delay(TimeSpan.FromSeconds(0.8f), cancellationToken: token);
             }
         }
 

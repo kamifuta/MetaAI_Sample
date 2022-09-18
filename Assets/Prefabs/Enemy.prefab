@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 8032459114019487620}
-  moveSpeed: 0.8
+  moveSpeed: 0.6
 --- !u!114 &2373259281688702649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bdded2ad882764fb2c43ac7e912429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4484288284009408112, guid: f01901bc30fe80c48b8d14b696e86978, type: 3}
 --- !u!114 &1439070267361936483
 MonoBehaviour:
   m_ObjectHideFlags: 0

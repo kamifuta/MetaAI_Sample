@@ -7,11 +7,11 @@ namespace Game.Players
 {
     public class PlayerShooter : MonoBehaviour, IPlayerShooter
     {
-        [SerializeField] private GameObject BulletPrefab;
+        [SerializeField] private BulletManager bulletManager;
 
         public void Shot()
         {
-            var bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
+            var bullet = bulletManager.GeneratePlayerBullet(transform.position);
             bullet.GetComponent<BulletMover>().SetInitioalSpeed(Vector2.up);
         }
     }
