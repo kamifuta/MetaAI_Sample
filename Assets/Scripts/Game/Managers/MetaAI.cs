@@ -32,22 +32,20 @@ namespace Game.Managers
         {
             while (true)
             {
-                await UniTask.WhenAll(
-                    UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: token),
-                    UniTask.WaitUntil(() => dethPosList.Count >= 10)
-                    );
+                await UniTask.WaitUntil(() => dethPosList.Count >= 5);
 
                 var result = CaluDifficulty();
                 enemyManager.SetGenerateInterval(result);
+                dethPosList.Clear();
             }
         }
 
         private float CaluDifficulty()
         {
             var average = dethPosList.Average();
-            var value = curve.Evaluate((average / 5) + 0.5f);
+            var value = curve.Evaluate((average / 10) + 0.5f);
 
-            var result = (value - 0.5f) * 4;
+            var result = (value - 0.5f) * 2;
             return result;
         }
     }

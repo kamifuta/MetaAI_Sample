@@ -18,6 +18,9 @@ namespace Game.Managers
         private WaitForSeconds enemyGenerateInterval;
         [SerializeField] private float intervalValue =2.5f;
 
+        private const float MaxInterval = 4f;
+        private const float MinInterval = 1f;
+
         private ISubject<Vector2> enemyDethPointSubject = new Subject<Vector2>();
         public IObservable<Vector2> EnemyDethPointObservable => enemyDethPointSubject;
 
@@ -66,8 +69,9 @@ namespace Game.Managers
         public void SetGenerateInterval(float delta)
         {
             intervalValue -= delta;
+            intervalValue = Mathf.Clamp(intervalValue, MinInterval, MaxInterval);
             enemyGenerateInterval = new WaitForSeconds(intervalValue);
-            Debug.Log($"interval : {intervalValue}");
+            Debug.Log($"interval: {intervalValue}");
         }
     }
 }
