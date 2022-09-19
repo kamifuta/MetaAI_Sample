@@ -1,0 +1,151 @@
+﻿@startuml AllClass
+
+namespace Game{
+    namespace Bullets{
+        abstract BaseBullet<<MonoBehabiour>>{
+            void OnTriggerEnter2D(Collider2D collider);
+        }
+        
+        class BulletMover<<MonoBehabiour>>{
+            Rigidbody2D rigidbody
+        }
+        class EnemyBullet
+        class PlayerBullet
+
+        BaseBullet<|--EnemyBullet
+        BaseBullet<|--PlayerBullet
+    }
+
+    namespace Enemies{
+        interface IEnemyAnimation
+        {
+            void PlayDieAnimation();
+        }
+        interface IEnemyDamagable
+        {
+            void ApplyDamage(int damage);
+        }
+        interface IEnemyHealth
+        {
+            void AddDamage(int damage)
+        }
+        interface IEnemyInput
+        {
+            Vector2 MoveVec;
+            IObservable<bool> PushedFire;
+        }
+        interface IEnemyMover
+        {
+            void Move(Vector2 moveVec);
+        }
+        interface IEnemyShooter
+        {
+            void Shot();
+        }
+
+        class EnemyAI
+        class EnemyAnimation <<MonoBehabiour>>
+        class EnemyController
+        class EnemyDamagable<<MonoBehabiour>>
+        class EnemyMover<<MonoBehabiour>>
+        {
+            Rigidbody2D rigidbody
+        }
+        class EnemyShooter<<MonoBehabiour>>
+        class EnemyHealth <<MonoBehabiour>>
+
+        IEnemyInput<|..EnemyAI
+        IEnemyAnimation<|..EnemyAnimation
+        IEnemyDamagable<|..EnemyDamagable
+        IEnemyHealth<|..EnemyHealth
+        IEnemyMover<|..EnemyMover
+        IEnemyShooter<|..EnemyShooter
+
+        EnemyController-->IEnemyMover
+        EnemyController-->IEnemyShooter
+        EnemyController-->IEnemyHealth
+        EnemyController-->IEnemyAnimation
+
+        EnemyController-->IEnemyInput
+        EnemyDamagable-->IEnemyHealth
+    }
+
+    namespace Managers{
+        namespace Bullets{
+            class BulletManager
+            class BulletGenerator
+
+            BulletManager-->BulletGenerator
+        }
+
+        namespace Enemies{
+            class EnemyManager
+            class EnemyGenerator
+
+            EnemyManager-->EnemyGenerator
+        }
+    }
+
+    namespace Players{
+        interface IPlayerAnimation{
+            void PlayDieAnimation();
+        }
+        interface IPlayerDamagable{
+            void ApplyDamage(int damage);
+        }
+        interface IPlayerHealth{
+            void AddDamage(int damage)
+        }
+        interface IPlayerInput
+        {
+            Vector2 MoveVec;
+            bool PushedFire;
+        }
+        interface IPlayerMover{
+            void Move(Vector2 moveVec);
+        }
+        interface IPlayerShooter{
+            void Shot();
+        }
+
+        class PlayerAnimation<<MonoBehabiour>>
+        class PlayerController
+        class PlayerDamagable<<MonoBehabiour>>
+        class PlayerHealth<<MonoBehabiour>>
+        class PlayerKeyInput
+        class PlayerMover<<MonoBehabiour>>
+        {
+            Rigidbody2D rigidbody
+        }
+        class PlayerShooter<<MonoBehabiour>>
+
+        IPlayerAnimation<|..PlayerAnimation
+        IPlayerDamagable<|..PlayerDamagable
+        IPlayerHealth<|..PlayerHealth
+        IPlayerInput<|..PlayerKeyInput
+        IPlayerMover<|..PlayerMover
+        IPlayerShooter<|..PlayerShooter
+
+        PlayerController-->IPlayerInput
+        PlayerController-->IPlayerMover
+        PlayerController-->IPlayerShooter
+        PlayerController-->IPlayerHealth
+        PlayerController-->IPlayerAnimation
+
+        PlayerDamagable-->IPlayerHealth
+    }
+}
+
+Game.Managers.Enemies.EnemyManager-->Game.Enemies.EnemyAI
+Game.Managers.Enemies.EnemyManager-->Game.Enemies.EnemyController
+
+Game.Enemies.EnemyShooter-->Game.Managers.Bullets.BulletManager
+Game.Enemies.EnemyShooter..>Game.Bullets.BulletMover
+
+Game.Players.PlayerShooter-->Game.Managers.Bullets.BulletManager
+Game.Players.PlayerShooter..>Game.Bullets.BulletMover
+
+Game.Bullets.EnemyBullet..>Game.Players.IPlayerDamagable
+Game.Bullets.PlayerBullet..>Game.Enemies.IEnemyDamagable
+
+@enduml
