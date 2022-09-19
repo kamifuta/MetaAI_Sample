@@ -13,7 +13,6 @@ namespace Game.Bullets
             if (collision.TryGetComponent<IPlayerDamagable>(out var damagable))
             {
                 damagable.ApplyDamage(1);
-                //Destroy(this.gameObject);
                 gameObject.SetActive(false);
             }
         }

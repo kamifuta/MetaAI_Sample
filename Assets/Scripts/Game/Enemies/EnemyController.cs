@@ -11,16 +11,17 @@ namespace Game.Enemies
 {
     public class EnemyController : ControllerBase, IDisposable
     {
-        private IEnemyInput enemyAI;
+        [Inject] private IEnemyInput enemyInput;
+
         private IEnemyMover enemyMover;
         private IEnemyShooter enemyShooter;
         private IEnemyHealth enemyHealth;
         private IEnemyAnimation enemyAnimation;
 
-        public EnemyController(IEnemyInput enemyAI, GameObject enemyObj)
+        public EnemyController(IEnemyInput enemyInput, GameObject enemyObj)
         {
             
-            this.enemyAI = enemyAI;
+            this.enemyInput = enemyInput;
             this.enemyMover = enemyObj.GetComponent<IEnemyMover>();
             this.enemyShooter = enemyObj.GetComponent<IEnemyShooter>();
             this.enemyHealth = enemyObj.GetComponent<IEnemyHealth>();
@@ -29,11 +30,11 @@ namespace Game.Enemies
             Init();
         }
 
-        private void Init()
+        public void Init()
         {
-            enemyMover.Move(enemyAI.MoveVec);
+            enemyMover.Move(enemyInput.MoveVec);
 
-            enemyAI.PushedFire
+            enemyInput.PushedFire
                 .Where(x => x)
                 .Subscribe(_ =>
                 {

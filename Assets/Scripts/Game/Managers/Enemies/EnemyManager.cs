@@ -9,7 +9,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
 
-namespace Game.Managers
+namespace Game.Managers.Enemies
 {
     public class EnemyManager : MonoBehaviour
     {
@@ -25,6 +25,11 @@ namespace Game.Managers
 
         private ISubject<Vector2> enemyDethPointSubject = new Subject<Vector2>();
         public IObservable<Vector2> EnemyDethPointObservable => enemyDethPointSubject;
+
+        private void Start()
+        {
+            StartCoroutine(GenerateEnemyCoroutine());
+        }
 
         public IEnumerator GenerateEnemyCoroutine()
         {
@@ -43,15 +48,15 @@ namespace Game.Managers
 
         private void InitEnemy(GameObject enemy)
         {
-            var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy(), new CancellationToken());
+            //var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy(), new CancellationToken());
 
-            EnemyAI enemyAI = new EnemyAI(linkedToken.Token);
+            EnemyAI enemyAI = new EnemyAI();
 
             EnemyController enemyController = new EnemyController(enemyAI, enemy);
-            ObservaEnemyObject(enemy, enemyController, linkedToken);
+            ObservaEnemyObject(enemy, enemyController, enemyAI);
         }
 
-        private void ObservaEnemyObject(GameObject enemy, EnemyController enemyController, CancellationTokenSource token)
+        private void ObservaEnemyObject(GameObject enemy, EnemyController enemyController, IDisposable enemyInput)
         {
             enemy.UpdateAsObservable()
                 .Where(_=>enemy.transform.position.y<Bottom)
@@ -67,7 +72,7 @@ namespace Game.Managers
                     Vector3 position = enemy.transform.position;
                     enemyDethPointSubject.OnNext(new Vector2(position.x, position.y));
                     enemyController.Dispose();
-                    token.Cancel();
+                    enemyInput.Dispose();
                 })
                 .AddTo(this);
         }

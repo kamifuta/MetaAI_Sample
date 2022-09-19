@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Bullets
+namespace Game.Managers.Bullets
 {
     public class BulletGenerator : MonoBehaviour
     {

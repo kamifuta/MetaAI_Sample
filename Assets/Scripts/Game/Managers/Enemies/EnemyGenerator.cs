@@ -6,7 +6,7 @@ using System.ComponentModel;
 using UnityEngine;
 using VContainer;
 
-namespace Game.Managers
+namespace Game.Managers.Enemies
 {
     public class EnemyGenerator : MonoBehaviour
     {

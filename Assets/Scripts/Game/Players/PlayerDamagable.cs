@@ -6,7 +6,7 @@ namespace Game.Players
 {
     public class PlayerDamagable : MonoBehaviour, IPlayerDamagable
     {
-        [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private IPlayerHealth playerHealth;
 
         public void ApplyDamage(int damage)
         {

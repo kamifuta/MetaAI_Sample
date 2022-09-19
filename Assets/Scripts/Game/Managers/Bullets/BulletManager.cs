@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace Game.Bullets
+namespace Game.Managers.Bullets
 {
     public class BulletManager : MonoBehaviour
     {

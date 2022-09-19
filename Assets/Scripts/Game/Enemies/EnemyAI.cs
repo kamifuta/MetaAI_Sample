@@ -16,12 +16,14 @@ namespace Game.Enemies
         private Subject<bool> pushedFireSubject = new Subject<bool>();
         public IObservable<bool> PushedFire => pushedFireSubject.AsObservable();
 
-        public EnemyAI(CancellationToken token)
+        private readonly CancellationTokenSource tokenSource= new CancellationTokenSource();
+
+        public EnemyAI()
         {
-            PushedFireAsync(token).Forget();
+            PushedFireAsync(tokenSource.Token).Forget();
         }
 
-        public async UniTask PushedFireAsync(CancellationToken token)
+        private async UniTask PushedFireAsync(CancellationToken token)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
             while (true)
@@ -30,14 +32,13 @@ namespace Game.Enemies
                 await UniTask.Delay(TimeSpan.FromSeconds(0.8f), cancellationToken: token);
                 pushedFireSubject.OnNext(true);
                 await UniTask.Delay(TimeSpan.FromSeconds(2.4f), cancellationToken: token);
-                //pushedFireSubject.OnNext(true);
-                //await UniTask.Delay(TimeSpan.FromSeconds(0.8f), cancellationToken: token);
             }
         }
 
         public void Dispose()
         {
             pushedFireSubject.Dispose();
+            tokenSource.Cancel();
         }
     }
 }
