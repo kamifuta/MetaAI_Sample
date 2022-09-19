@@ -18,14 +18,13 @@ namespace Game.Players
         private IPlayerAnimation playerAnimation;
 
         [Inject]
-        public PlayerController(IPlayerInput playerInput, IPlayerMover playerMover, IPlayerShooter playerShooter,
-            IPlayerHealth playerHealth, IPlayerAnimation playerAnimation)
+        public PlayerController(IPlayerInput playerInput, GameObject playerObj)
         {
             this.playerInput = playerInput;
-            this.playerMover = playerMover;
-            this.playerShooter = playerShooter;
-            this.playerHealth = playerHealth;
-            this.playerAnimation = playerAnimation;
+            this.playerMover = playerObj.GetComponent<IPlayerMover>();
+            this.playerShooter = playerObj.GetComponent<IPlayerShooter>();
+            this.playerHealth = playerObj.GetComponent<IPlayerHealth>();
+            this.playerAnimation = playerObj.GetComponent<IPlayerAnimation>();
         }
 
         public void Start()

@@ -6,10 +6,7 @@ using VContainer.Unity;
 
 public class GameLifetimeScope : LifetimeScope
 {
-    [SerializeField] private PlayerMover playerMover;
-    [SerializeField] private PlayerShooter playerShooter;
-    [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private PlayerAnimation playerAnimation;
+    [SerializeField] private GameObject playerObj;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -17,9 +14,6 @@ public class GameLifetimeScope : LifetimeScope
 
         builder.Register<IPlayerInput, PlayerKyeInput>(Lifetime.Singleton);
 
-        builder.RegisterComponent<IPlayerMover>(playerMover);
-        builder.RegisterComponent<IPlayerShooter>(playerShooter);
-        builder.RegisterComponent<IPlayerHealth>(playerHealth);
-        builder.RegisterComponent<IPlayerAnimation>(playerAnimation);
+        builder.RegisterComponent(playerObj);
     }
 }

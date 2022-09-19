@@ -45,13 +45,9 @@ namespace Game.Managers
         {
             var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy(), new CancellationToken());
 
-            EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-            EnemyShooter enemyShooter = enemy.GetComponent<EnemyShooter>();
             EnemyAI enemyAI = new EnemyAI(linkedToken.Token);
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            EnemyAnimation enemyAnimation = enemy.GetComponent<EnemyAnimation>();
 
-            EnemyController enemyController = new EnemyController(enemyMover, enemyAI, enemyShooter, enemyHealth, enemyAnimation);
+            EnemyController enemyController = new EnemyController(enemyAI, enemy);
             ObservaEnemyObject(enemy, enemyController, linkedToken);
         }
 

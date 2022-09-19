@@ -11,20 +11,20 @@ namespace Game.Enemies
 {
     public class EnemyController : ControllerBase, IDisposable
     {
-        private IEnemyMover enemyMover;
         private IEnemyInput enemyAI;
+        private IEnemyMover enemyMover;
         private IEnemyShooter enemyShooter;
         private IEnemyHealth enemyHealth;
         private IEnemyAnimation enemyAnimation;
 
-        public EnemyController(IEnemyMover enemyMover, IEnemyInput enemyAI, IEnemyShooter enemyShooter,
-            IEnemyHealth enemyHealth, IEnemyAnimation enemyAnimation)
+        public EnemyController(IEnemyInput enemyAI, GameObject enemyObj)
         {
-            this.enemyMover = enemyMover;
+            
             this.enemyAI = enemyAI;
-            this.enemyShooter = enemyShooter;
-            this.enemyHealth = enemyHealth;
-            this.enemyAnimation = enemyAnimation;
+            this.enemyMover = enemyObj.GetComponent<IEnemyMover>();
+            this.enemyShooter = enemyObj.GetComponent<IEnemyShooter>();
+            this.enemyHealth = enemyObj.GetComponent<IEnemyHealth>();
+            this.enemyAnimation = enemyObj.GetComponent<IEnemyAnimation>();
 
             Init();
         }
