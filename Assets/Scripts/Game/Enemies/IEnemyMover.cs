@@ -6,7 +6,7 @@ namespace Game.Enemies
 {
     public interface IEnemyMover
     {
-        public void Move(Vector2 moveVec);
+        public void Move(Vector2 moveVec, float moveSpeed);
     }
 }
 

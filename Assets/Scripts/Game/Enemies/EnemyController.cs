@@ -32,7 +32,7 @@ namespace Game.Enemies
 
         public void Init()
         {
-            enemyMover.Move(enemyInput.MoveVec);
+            enemyMover.Move(enemyInput.MoveVec, enemyInput.MoveSpeed);
 
             enemyInput.PushedFire
                 .Where(x => x)

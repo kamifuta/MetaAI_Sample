@@ -439,35 +439,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 1650218538}
-  curve:
+  playerHealth: {fileID: 1854251707614834322}
+  tensityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2.0468254
-      outSlope: 2.0468254
+      inSlope: 0.9706916
+      outSlope: 0.9706916
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.05698785
+      outWeight: 0.015458594
     - serializedVersion: 3
-      time: 0.6477469
-      value: 0.49774152
-      inSlope: -0.0029719253
-      outSlope: -0.0029719253
+      time: 0.6499171
+      value: 0.19999786
+      inSlope: 0.008860025
+      outSlope: 0.008860025
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13332687
+      inWeight: 0.0705025
+      outWeight: 0.036569398
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 2.1267812
-      outSlope: 2.1267812
+      value: 0.4005394
+      inSlope: 1.0944229
+      outSlope: 1.0944229
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10163638
+      inWeight: 0.02843388
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -692,10 +693,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1854251707614834315, guid: cc11edc1a93141045af24a0979d6318b, type: 3}
-      propertyPath: moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 1854251707614834316, guid: cc11edc1a93141045af24a0979d6318b, type: 3}
       propertyPath: bulletManager
       value: 
@@ -706,23 +703,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc11edc1a93141045af24a0979d6318b, type: 3}
---- !u!114 &1854251707614834321
+--- !u!114 &1854251707614834322 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888408735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a477cef2d98d34b81f2dec9f5e3923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1854251707614834322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1854251707614834322, guid: cc11edc1a93141045af24a0979d6318b, type: 3}
+  m_PrefabInstance: {fileID: 1854251707614834312}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888408735}
   m_Enabled: 1
@@ -730,17 +714,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f481bfc112626c34da3619a6933d6cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 5
---- !u!114 &1854251707614834323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888408735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef190751dc1793468ab7dd05885440c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1854251707614834322}

@@ -6,7 +6,7 @@ namespace Game.Enemies
 {
     public class EnemyDamagable : MonoBehaviour, IEnemyDamagable
     {
-        [SerializeField] private IEnemyHealth enemyHealth;
+        [SerializeField] private EnemyHealth enemyHealth;
 
         public void ApplyDamage(int damage)
         {

@@ -13,13 +13,21 @@ namespace Game.Enemies
     {
         public Vector2 MoveVec { get; } = Vector2.down;
 
+        public float MoveSpeed { get; private set; }
+        private float shortShotInterval;
+        private float longShotInterval;
+
         private Subject<bool> pushedFireSubject = new Subject<bool>();
         public IObservable<bool> PushedFire => pushedFireSubject.AsObservable();
 
         private readonly CancellationTokenSource tokenSource= new CancellationTokenSource();
 
-        public EnemyAI()
+        public EnemyAI(float moveSpeed, float shortShotInterval, float longShotInterval)
         {
+            this.MoveSpeed = moveSpeed;
+            this.shortShotInterval = shortShotInterval;
+            this.longShotInterval = longShotInterval;
+
             PushedFireAsync(tokenSource.Token).Forget();
         }
 
@@ -29,9 +37,9 @@ namespace Game.Enemies
             while (true)
             {
                 pushedFireSubject.OnNext(true);
-                await UniTask.Delay(TimeSpan.FromSeconds(0.8f), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(shortShotInterval), cancellationToken: token);
                 pushedFireSubject.OnNext(true);
-                await UniTask.Delay(TimeSpan.FromSeconds(2.4f), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(longShotInterval), cancellationToken: token);
             }
         }
 

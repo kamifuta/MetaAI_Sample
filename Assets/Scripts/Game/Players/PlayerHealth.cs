@@ -7,7 +7,7 @@ namespace Game.Players
     public class PlayerHealth : MonoBehaviour, IPlayerHealth
     {
         [SerializeField] private int maxHP=5;
-        private int currentHP;
+        public int currentHP { get; private set; }
 
         public bool IsDead => currentHP <= 0;
 
