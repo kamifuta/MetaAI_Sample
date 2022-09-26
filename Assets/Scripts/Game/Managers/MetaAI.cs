@@ -113,7 +113,8 @@ namespace Game.Managers
 
         private float CalcGenerateInterval(float tensity)
         {
-            var result = (EnemyManager.MaxInterval - EnemyManager.MinInterval) * Mathf.Pow((tensity-0.05f),2) + EnemyManager.MinInterval;
+            //(0,0.25),(1,0.4)‚ğ’Ê‚èA(0.5,0.325)‚ğ•Ï‹È“_‚Æ‚·‚éŠÖ”
+            var result = (3f / 5f) * Mathf.Pow((tensity - 0.5f), 3) + 0.325f;
             return result;
         }
 
