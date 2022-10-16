@@ -21,8 +21,13 @@ namespace Game.Managers
 
         private const float AdjustInterval = 5f;
 
+        [SerializeField] private DataSender dataSender;
+        private bool firstSend = false;
+        private int sendDataCount = 1;
+
         private void Start()
         {
+
             enemyManager.EnemyDethPointObservable
                 .Subscribe(pos =>
                 {
@@ -39,6 +44,7 @@ namespace Game.Managers
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(AdjustInterval), cancellationToken:token);
                 //await UniTask.WaitUntil(() => dethPosList.Count >= 5);
+                if (playerHealth.IsDead) break;
 
                 var tensity = CalcTensity();
                 Debug.Log($"tensity:{tensity}");
@@ -49,7 +55,15 @@ namespace Game.Managers
 
         private float CalcTensity()
         {
-            float tensity = CalcTensityDethPosition() + CalcTensityPlayerHealth() + CalcTensityEnemyCount();
+            var deathPositionTensity = CalcTensityDethPosition();
+            var playerHealthTensity = CalcTensityPlayerHealth();
+            var enemyCountTensity = CalcTensityEnemyCount();
+            float tensity = deathPositionTensity + playerHealthTensity + enemyCountTensity;
+
+            var data = new TensityData(tensity, deathPositionTensity, playerHealthTensity, enemyCountTensity);
+            dataSender.SendData(sendDataCount, data);
+            sendDataCount++;
+
             return tensity;
         }
 
@@ -113,8 +127,8 @@ namespace Game.Managers
 
         private float CalcGenerateInterval(float tensity)
         {
-            //(0,0.25),(1,0.4)を通り、(0.5,0.325)を変曲点とする関数
-            var result = (3f / 5f) * Mathf.Pow((tensity - 0.5f), 3) + 0.325f;
+            //(0,0.5),(1,2.0)を通り、(0.5,1.25)を変曲点とする関数
+            var result = (2f / 5f) * Mathf.Pow((tensity - 0.5f), 3) + 1.25f;
             return result;
         }
 
