@@ -75,3 +75,16 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+Assets/Editor Default Resources
+Assets/ExternalDependencyManager
+Assets/Firebase
+Assets/Plugins/iOS
+Assets/Plugins/iOS.meta
+Assets/Parse/Plugins/dotNet45
+Assets/Parse/Plugins/dotNet45.meta
+Assets/Parse/Plugins/Unity.Compat.dll
+Assets/Parse/Plugins/Unity.Compat.dll.meta
+Assets/Parse/Plugins/Unity.Tasks.dll
+Assets/Parse/Plugins/Unity.Tasks.dll.meta
+Assets/Parse/Plugins.meta
+Assets/StreamingAssets
