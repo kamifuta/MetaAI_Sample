@@ -1716,6 +1716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 1650218538}
   playerHealth: {fileID: 1854251707614834322}
+  itemManager: {fileID: 559367907}
   tensityCurve:
     serializedVersion: 2
     m_Curve:

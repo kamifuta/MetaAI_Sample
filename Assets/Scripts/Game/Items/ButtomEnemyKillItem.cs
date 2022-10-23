@@ -10,7 +10,7 @@ namespace Game.Items
         {
             base.Execute();
 
-            var targetEnemies = enemyManager.GetButtomEnemy(3);
+            var targetEnemies = enemyManager.GetButtomEnemy(2);
             foreach(var enemy in targetEnemies)
             {
                 Destroy(enemy);

@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using Game.Managers.Enemies;
 using Game.Players;
+using Game.Managers.Items;
 
 namespace Game.Managers
 {
@@ -15,6 +16,7 @@ namespace Game.Managers
     {
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private ItemManager itemManager;
         [SerializeField] private AnimationCurve tensityCurve;
 
         //private List<float> dethPosList = new List<float>();
@@ -120,9 +122,15 @@ namespace Game.Managers
 
         private void AdjustDifficulty(float tensity)
         {
+            //敵の生成間隔を調整
             enemyManager.SetGenerateInterval(CalcGenerateInterval(tensity));
+
+            //敵の弾の発射間隔、動くスピードを調整
             var shotInterval = CalcShotInterval(tensity);
             enemyManager.AdjustEnemyAI(CalcMoveSpeed(tensity), shotInterval.Key, shotInterval.Value);
+
+            //アイテムのドロップ率を調整
+            itemManager.SetItemDropRate(CalcitemDropRate(tensity));
         }
 
         private float CalcGenerateInterval(float tensity)
@@ -144,6 +152,12 @@ namespace Game.Managers
             var longShotInterval = 0.4f * (1 / tensity) + 2.2f;
 
             return new KeyValuePair<float, float>(shortShotInterval, longShotInterval);
+        }
+
+        private float CalcitemDropRate(float tensity)
+        {
+            var result = Mathf.Pow(tensity - 0.55f, 3) + 0.15f;
+            return result;
         }
     }
 }
