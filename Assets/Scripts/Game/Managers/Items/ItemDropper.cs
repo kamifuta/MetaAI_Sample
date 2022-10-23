@@ -11,10 +11,11 @@ namespace Game.Managers.Items
         [SerializeField] private GameObject itemPrefab;
         [SerializeField] private EnemyManager enemyManager;
 
-        public void DropItem(Vector3 dropPoint)
+        public GameObject DropItem(Vector3 dropPoint)
         {
             var item = Instantiate(itemPrefab, dropPoint, Quaternion.identity);
             item.GetComponent<BaseItem>().Init(enemyManager, -1f);
+            return item;
         }
     }
 }

@@ -108,7 +108,7 @@ namespace Game.Managers.Enemies
         }
 
         public IEnumerable<GameObject> GetButtomEnemy(int amount)
-            => currentEnemyList.OrderByDescending(x => x.transform.position.y).Take(amount);
+            => currentEnemyList.OrderBy(x => x.transform.position.y).Take(amount);
     }
 }
 

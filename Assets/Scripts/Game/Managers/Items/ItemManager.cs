@@ -14,6 +14,8 @@ namespace Game.Managers.Items
 
         private float itemDropRate = 0.1f;
 
+        private List<GameObject> itemObjList = new List<GameObject>();
+
         private void Start()
         {
             enemyManager.EnemyGeneratedObservable
@@ -34,13 +36,22 @@ namespace Game.Managers.Items
             var r = Random.value;
             if (r < itemDropRate)
             {
-                itemDropper.DropItem(dropPoint);
+                var item=itemDropper.DropItem(dropPoint);
+                itemObjList.Add(item);
             }
         }
 
         public void SetItemDropRate(float rate)
         {
             itemDropRate = rate;
+        }
+
+        private void OnDestroy()
+        {
+            foreach(var item in itemObjList)
+            {
+                Destroy(item);
+            }
         }
     }
 }

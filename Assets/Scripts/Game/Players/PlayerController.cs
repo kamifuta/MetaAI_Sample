@@ -18,6 +18,8 @@ namespace Game.Players
         private IPlayerHealth playerHealth;
         private IPlayerAnimation playerAnimation;
 
+        private bool IsShooting = false;
+
         [Inject]
         public PlayerController(IPlayerInput playerInput, GameObject playerObj)
         {
@@ -31,19 +33,25 @@ namespace Game.Players
         public void Start()
         {
             this.ObserveEveryValueChanged(x => x.playerInput.PushedFire)
-                .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
-                .Where(x => x)
+                .ThrottleFirst(TimeSpan.FromSeconds(0.5f))
+                .Where(x => x && !IsShooting)
                 .Subscribe(_ =>
                 {
                     playerShooter.Shot();
+                    IsShooting = true;
 
                     //スペースキーを押し続けている間弾を発射し続ける
-                    Observable.Interval(TimeSpan.FromSeconds(0.2f))
-                    .TakeWhile(_=>playerInput.PushingFire)
+                    Observable.Interval(TimeSpan.FromSeconds(0.4f))
+                    .TakeWhile(_ => playerInput.PushingFire)
                         .Subscribe(_ =>
                         {
                             playerShooter.Shot();
-                        })
+                        }, 
+                        () => 
+                        {
+                            IsShooting = false;
+                            Debug.Log("finish");
+                         })
                         .AddTo(this);
                 })
                 .AddTo(this);
