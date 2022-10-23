@@ -9,6 +9,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
 using Game.Managers.Players;
+using System.Linq;
 
 namespace Game.Managers.Enemies
 {
@@ -32,6 +33,9 @@ namespace Game.Managers.Enemies
         private ISubject<Vector2> enemyDethPointSubject = new Subject<Vector2>();
         public IObservable<Vector2> EnemyDethPointObservable => enemyDethPointSubject;
 
+        private ISubject<GameObject> enemyGeneratedSubject = new Subject<GameObject>();
+        public IObservable<GameObject> EnemyGeneratedObservable => enemyGeneratedSubject;
+
         private List<GameObject> currentEnemyList = new List<GameObject>();
         public IReadOnlyList<GameObject> CurrentEnemyList => currentEnemyList;
 
@@ -51,6 +55,7 @@ namespace Game.Managers.Enemies
 
                 InitEnemy(enemy);
                 currentEnemyList.Add(enemy);
+                enemyGeneratedSubject.OnNext(enemy);
                 
                 yield return enemyGenerateInterval;
             }
@@ -101,6 +106,9 @@ namespace Game.Managers.Enemies
             enemyShortShotInterval = shortShotInterval;
             enemyLongShotInterval = longShotInterval;
         }
+
+        public IEnumerable<GameObject> GetButtomEnemy(int amount)
+            => currentEnemyList.OrderByDescending(x => x.transform.position.y).Take(amount);
     }
 }
 
