@@ -8,6 +8,7 @@ namespace Game.Players
     {
         Vector2 MoveVec { get; }
         bool PushedFire { get; }
+        bool PushingFire { get; }
     }
 }
 

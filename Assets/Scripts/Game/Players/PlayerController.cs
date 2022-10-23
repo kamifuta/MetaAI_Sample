@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -35,6 +36,15 @@ namespace Game.Players
                 .Subscribe(_ =>
                 {
                     playerShooter.Shot();
+
+                    //スペースキーを押し続けている間弾を発射し続ける
+                    Observable.Interval(TimeSpan.FromSeconds(0.2f))
+                    .TakeWhile(_=>playerInput.PushingFire)
+                        .Subscribe(_ =>
+                        {
+                            playerShooter.Shot();
+                        })
+                        .AddTo(this);
                 })
                 .AddTo(this);
 

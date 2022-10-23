@@ -8,6 +8,7 @@ namespace Game.Players
     {
         public Vector2 MoveVec => new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
         public bool PushedFire => Input.GetKeyDown(KeyCode.Space);
+        public bool PushingFire => Input.GetKey(KeyCode.Space);
     }
 }
 
