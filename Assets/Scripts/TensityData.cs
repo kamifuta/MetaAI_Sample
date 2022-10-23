@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TensityData
 {
+    public static string userName;
+
     public float sumTensity;
     public float deathPositionTensity;
     public float playerHealthTensity;

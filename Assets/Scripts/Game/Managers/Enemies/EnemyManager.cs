@@ -8,12 +8,14 @@ using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
+using Game.Managers.Players;
 
 namespace Game.Managers.Enemies
 {
     public class EnemyManager : MonoBehaviour
     {
         [SerializeField] private EnemyGenerator enemyGenerator;
+        [SerializeField] private PlayerManager playerManager;
 
         private WaitForSeconds enemyGenerateInterval;
         [SerializeField] private float intervalValue =2.5f;
@@ -69,6 +71,7 @@ namespace Game.Managers.Enemies
                 .Subscribe(_ =>
                 {
                     Destroy(enemy);
+                    playerManager.AddDamage();
                 })
                 .AddTo(this);
 

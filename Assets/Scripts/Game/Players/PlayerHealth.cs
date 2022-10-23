@@ -11,7 +11,7 @@ namespace Game.Players
 
         public bool IsDead => currentHP <= 0;
 
-        private void Start()
+        private void Awake()
         {
             currentHP = maxHP;
         }

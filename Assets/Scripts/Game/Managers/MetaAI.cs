@@ -61,7 +61,7 @@ namespace Game.Managers
             float tensity = deathPositionTensity + playerHealthTensity + enemyCountTensity;
 
             var data = new TensityData(tensity, deathPositionTensity, playerHealthTensity, enemyCountTensity);
-            dataSender.SendData(sendDataCount, data);
+            dataSender.SendData(TensityData.userName, sendDataCount, data);
             sendDataCount++;
 
             return tensity;

@@ -17,11 +17,11 @@ public class DataSender : MonoBehaviour
         refarence = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public async void SendData(int count, TensityData data)
+    public async void SendData(string userName, int count, TensityData data)
     {
         string json = JsonUtility.ToJson(data);
 
-        refarence.Child("TensityData").Child(id.ToString()).Child(count.ToString()).SetRawJsonValueAsync(json);
+        refarence.Child("TensityData").Child(userName).Child(id.ToString()).Child(count.ToString()).SetRawJsonValueAsync(json);
         //refarence.Child("name").SetValueAsync("aaa");
     }
 
