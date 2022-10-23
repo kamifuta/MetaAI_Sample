@@ -17,9 +17,9 @@ namespace Game.Managers
         [SerializeField] private PlayerHealth playerHealth;
         [SerializeField] private AnimationCurve tensityCurve;
 
-        private List<float> dethPosList = new List<float>();
+        //private List<float> dethPosList = new List<float>();
 
-        private const float AdjustInterval = 5f;
+        private const float AdjustInterval = 1f;
 
         [SerializeField] private DataSender dataSender;
         private bool firstSend = false;
@@ -28,12 +28,12 @@ namespace Game.Managers
         private void Start()
         {
 
-            enemyManager.EnemyDethPointObservable
-                .Subscribe(pos =>
-                {
-                    dethPosList.Add(pos.y);
-                })
-                .AddTo(this);
+            //enemyManager.EnemyDethPointObservable
+            //    .Subscribe(pos =>
+            //    {
+            //        dethPosList.Add(pos.y);
+            //    })
+            //    .AddTo(this);
 
             AdjustDifficultyAsync(this.GetCancellationTokenOnDestroy()).Forget();
         }
@@ -49,13 +49,13 @@ namespace Game.Managers
                 var tensity = CalcTensity();
                 Debug.Log($"tensity:{tensity}");
                 AdjustDifficulty(tensity);
-                dethPosList.Clear();
+                //dethPosList.Clear();
             }
         }
 
         private float CalcTensity()
         {
-            var deathPositionTensity = CalcTensityDethPosition();
+            var deathPositionTensity = CalcTensityBottomEnemyPosition();
             var playerHealthTensity = CalcTensityPlayerHealth();
             var enemyCountTensity = CalcTensityEnemyCount();
             float tensity = deathPositionTensity + playerHealthTensity + enemyCountTensity;
@@ -68,18 +68,18 @@ namespace Game.Managers
         }
 
         /// <summary>
-        /// ìGÇì|ÇµÇΩà íuÇ…ÇÊÇÈãŸí£ìx
+        /// ç≈Ç‡âÊñ â∫Ç…Ç¢ÇÈìGÇÃà íuÇ…ÇÊÇÈãŸí£ìx
         /// </summary>
         /// <returns>0Ç©ÇÁ0.4Ç‹Ç≈ÇÃílÇï‘Ç∑</returns>
-        private float CalcTensityDethPosition()
+        private float CalcTensityBottomEnemyPosition()
         {
-            if (dethPosList.Count == 0)
+            if (enemyManager.CurrentEnemyList.Count == 0)
             {
-                return 0.4f;
+                return 0.01f;
             }
 
-            var average = dethPosList.Average();
-            var result = tensityCurve.Evaluate((average / 10) + 0.5f);
+            var bottomPosY = enemyManager.GetButtomEnemy(1).First().transform.position.y;
+            var result = tensityCurve.Evaluate((bottomPosY / 10) + 0.5f);
 
             Debug.Log($"tensity deth Pos:{result}");
             return result;
