@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "788056133584",
+    "firebase_url": "https://unity-mataai-default-rtdb.firebaseio.com",
+    "project_id": "unity-mataai",
+    "storage_bucket": "unity-mataai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788056133584:android:14425a1bb24dc90bb673d5",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.MetaAI_Sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788056133584-75dabs1fhd56q75oe3gm8r0fhne45s72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKXONJYsvPaTV38J3VYLexzjto56zRf0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788056133584-75dabs1fhd56q75oe3gm8r0fhne45s72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
